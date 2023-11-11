@@ -1,18 +1,18 @@
 import os
 import modal
 
-LOCAL=True
+LOCAL=False
 
 if LOCAL == False:
-   stub = modal.Stub("iris_daily")
-   image = modal.Image.debian_slim().pip_install(["hopsworks"]) 
+   stub = modal.Stub("iris_daily")  # The app/stub
+   image = modal.Image.debian_slim().pip_install(["hopsworks"])  # the virtual env/image
 
-   @stub.function(image=image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("jim-hopsworks-ai"))
+   @stub.function(image=image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("my-custom-secret"))
    def f():
        g()
 
 
-def generate_flower(name, sepal_len_max, sepal_len_min, sepal_width_max, sepal_width_min, 
+def generate_flower(name, sepal_len_max, sepal_len_min, sepal_width_max, sepal_width_min,
                     petal_len_max, petal_len_min, petal_width_max, petal_width_min):
     """
     Returns a single iris flower as a single row in a DataFrame
