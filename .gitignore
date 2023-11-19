@@ -1,3 +1,5 @@
 .DS_store
 .ipynb_checkpoints
 __pycache__/
+P2/test.py
+P2/winequalityN.csv

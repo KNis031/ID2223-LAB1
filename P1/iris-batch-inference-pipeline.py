@@ -4,7 +4,7 @@ import modal
 LOCAL=False
 
 if LOCAL == False:
-   stub = modal.Stub()
+   stub = modal.Stub("iris_inference")
    hopsworks_image = modal.Image.debian_slim().pip_install(["hopsworks","joblib","seaborn","scikit-learn==1.1.1","dataframe-image"])
    @stub.function(image=hopsworks_image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("my-custom-secret"))
    def f():
@@ -104,5 +104,6 @@ if __name__ == "__main__":
     if LOCAL == True :
         g()
     else:
+        stub.deploy("iris_inference")
         with stub.run():
             f()
